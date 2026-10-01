@@ -3,13 +3,15 @@ package com.katana.shop.model;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="ordini")
 public class Ordine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(name="data_ordine" ,nullable = false)
     private LocalDateTime dataOrdine;
@@ -17,18 +19,27 @@ public class Ordine {
     @Column(name="totale",nullable = false)
     private BigDecimal totale;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name="utente_id",nullable = false)
     private Utente utente;
 
-    @Column(name="quantita", nullable = false)
-    private int quantita;
+   @OneToMany(mappedBy = "ordine",cascade = CascadeType.ALL,orphanRemoval = true)
+   private List<RigaOrdine> righe=new ArrayList<>();
 
     public Ordine(){
+
+    }
+    public Ordine(Utente utente){
         this.dataOrdine=LocalDateTime.now();
+        this.utente=utente;
+    }
+    public void aggiungiRiga(Katana katana,int quantita){
+        RigaOrdine riga=new RigaOrdine(this,katana,quantita,katana.getPrezzo());
+        riga.add(riga);
+        totale=totale.add(riga.getSubtotale());
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,15 +47,12 @@ public class Ordine {
         return totale;
     }
 
-    public int getQuantita() {
-        return quantita;
-    }
 
     public LocalDateTime getDataOrdine() {
         return dataOrdine;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -56,9 +64,6 @@ public class Ordine {
         this.totale = totale;
     }
 
-    public void setQuantita(int quantita) {
-        this.quantita = quantita;
-    }
 
     public void setUtente(Utente utente) {
         this.utente = utente;

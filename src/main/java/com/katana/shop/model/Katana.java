@@ -22,10 +22,16 @@ public class Katana {
     private int giacenza_magazzino;
 
     @Version
-    private int version;
+    private Long version;
 
     public Katana(){}
 
+    public Katana(String nome,String tipo_acciaio,BigDecimal prezzo,int giacenza_magazzino){
+        this.nome=nome;
+        this.tipo_acciaio=tipo_acciaio;
+        this.giacenza_magazzino=giacenza_magazzino;
+        this.prezzo=prezzo;
+    }
     public void setPrezzo(BigDecimal prezzo) {
         this.prezzo = prezzo;
     }
@@ -50,7 +56,7 @@ public class Katana {
         return giacenza_magazzino;
     }
 
-    public int getVersion() {
+    public Long getVersion() {
         return version;
     }
 
@@ -70,7 +76,7 @@ public class Katana {
         this.tipo_acciaio = tipo_acciaio;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 

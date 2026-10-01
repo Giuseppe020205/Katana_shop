@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,17 +22,26 @@ public class Utente implements UserDetails {
     @Column(unique = true,nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique =true,length = 100)
     private String email;
 
-    private String role;
+    private Ruolo ruolo= Ruolo.USER;
 
     @OneToMany(mappedBy = "utente",cascade = CascadeType.ALL)
-    private List<Ordine> ordini;
+    private List<Ordine> ordini=new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + ruolo.name()));
+    }
+    public Utente(){
+
+    }
+    public Utente(String username,String password,String email,Ruolo ruolo){
+        this.username=username;
+        this.email=email;
+        this.password=password;
+        this.ruolo=ruolo;
     }
 
     public Long getId() {

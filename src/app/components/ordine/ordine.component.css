@@ -1,0 +1,44 @@
+.ordine-box {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #1e1e1e;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+  margin: 1.5rem 0;
+}
+
+.input-quantita {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background: #333;
+  color: white;
+}
+
+.btn-conferma {
+  width: 100%;
+  padding: 0.8rem;
+  background: #27ae60;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.esito-msg {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.esito-msg.success { background: #27ae60; }
+.esito-msg.error { background: #c0392b; }

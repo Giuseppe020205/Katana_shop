@@ -1,0 +1,59 @@
+.catalogo-container {
+  padding: 2rem;
+}
+
+.katana-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.katana-card {
+  background: #252525;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header h3 {
+  color: #d4af37;
+  margin: 0;
+}
+
+.badge {
+  background: #444;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+.prezzo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2ecc71;
+}
+
+.disponibilita.esaurito {
+  color: #e74c3c;
+}
+
+.btn-acquista {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-acquista:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}

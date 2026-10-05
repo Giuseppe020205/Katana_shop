@@ -35,7 +35,7 @@ public class Ordine {
     }
     public void aggiungiRiga(Katana katana,int quantita){
         RigaOrdine riga=new RigaOrdine(this,katana,quantita,katana.getPrezzo());
-        riga.add(riga);
+        righe.add(riga);
         totale=totale.add(riga.getSubtotale());
     }
 

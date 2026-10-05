@@ -19,7 +19,7 @@ public class Utente implements UserDetails {
     @Column(unique = true,nullable = false)
     private String username;
 
-    @Column(unique = true,nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false,unique =true,length = 100)
@@ -59,22 +59,22 @@ public class Utente implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override

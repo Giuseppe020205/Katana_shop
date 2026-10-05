@@ -21,10 +21,10 @@
         </tr>
         <c:forEach var="k" items="${elencoKatane}">
             <tr>
-                <tf><c:out value="${k.nome}" /></td>
-                <th><c:out value="${k.tipoAcciaio" /></td>
-                <th><c:out value="${k.prezzo" /></td>
-                <th><c:out value="${k.giacenza_magazzino"/></td>
+                <td><c:out value="${k.nome}" /></td>
+                <td><c:out value="${k.tipo_acciaio}" /></td>
+                <td><c:out value="${k.prezzo}" /></td>
+                <td><c:out value="${k.giacenza_magazzino}" /></td>
                 <td>
                     <form action="<c:url value='/katane/acquista'/>" method="post">
                         <input type="hidden" name="id" value="${k.id}" />

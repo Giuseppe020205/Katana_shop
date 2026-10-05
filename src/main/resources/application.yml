@@ -4,9 +4,9 @@ spring:
   profiles:
     default: dev
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/katana_shop?createDatabaseIfNotExist=true&serverTimezone=UTC}
-    username: ${DB_USER:root}
-    password: ${DB_PASSWORD:}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/katana_shop}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:Postgres123!}
   jpa:
     open-in-view: false
     properties:
@@ -14,6 +14,8 @@ spring:
         format_sql: true
 
 app:
+  cors:
+    allowed-origin: ${CORS_ORIGIN:http://localhost:4200}
   jwt:
     # In produzione impostare la variabile d'ambiente JWT_SECRET (almeno 32 caratteri)
     secret: ${JWT_SECRET:cambia-questo-segreto-solo-per-sviluppo-0123456789}

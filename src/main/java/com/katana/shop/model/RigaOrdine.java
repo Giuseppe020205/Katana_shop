@@ -1,9 +1,5 @@
 package com.katana.shop.model;
-
-
 import jakarta.persistence.*;
-
-import java.awt.image.renderable.RenderedImageFactory;
 import java.math.BigDecimal;
 
 @Entity

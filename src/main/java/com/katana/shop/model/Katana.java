@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class Katana {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(name= "nome",nullable = false,length = 100)
     private String nome;
@@ -48,7 +48,7 @@ public class Katana {
         return prezzo;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -68,7 +68,7 @@ public class Katana {
         this.giacenza_magazzino = giacenza_magazzino;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

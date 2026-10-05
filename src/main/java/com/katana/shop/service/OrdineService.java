@@ -16,7 +16,7 @@ public class OrdineService {
         this.katanaRepository=katanaRepository;
     }
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.READ_COMMITTED)
-    public void completaAcquisto(String katanaId,int quantita){
+    public void completaAcquisto(Long katanaId,int quantita){
         Katana katana=katanaRepository.findById(katanaId).orElseThrow(() -> new IllegalArgumentException("katana non trovata"));
 
         if (katana.getGiacenza_magazzino() <quantita) {

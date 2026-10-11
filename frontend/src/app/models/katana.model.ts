@@ -1,5 +1,5 @@
 export interface Katana{
-    id?: string;
+    id?: number;
     nome: string;
     tipo_acciaio: string;
     prezzo: number;

@@ -2,6 +2,7 @@ package com.katana.shop.service;
 
 import com.katana.shop.Repository.UtenteRepository;
 import com.katana.shop.dto.RegistrazioneRequest;
+import com.katana.shop.dto.UtenteAdminDto;
 import com.katana.shop.dto.UtenteDto;
 import com.katana.shop.exception.UtenteGiaEsistenteException;
 import com.katana.shop.model.Ruolo;
@@ -9,6 +10,9 @@ import com.katana.shop.model.Utente;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
 @Service
 public class UtenteService {
     private final UtenteRepository utenteRepository;
@@ -33,5 +37,9 @@ public class UtenteService {
                 Ruolo.USER
         );
         return UtenteDto.from(utenteRepository.save(utente));
+    }
+    @Transactional(readOnly = true)
+    public List<UtenteAdminDto> elencoUtenti(){
+        return utenteRepository.findAll().stream().map(UtenteAdminDto :: from).toList();
     }
 }

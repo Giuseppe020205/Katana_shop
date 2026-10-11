@@ -9,7 +9,7 @@ public record KatanaDto(
         String nome,
         String tipo_acciaio,
         BigDecimal prezzo,
-        int giacenza
+        int giacenza_magazzino
         
 ) {
     public static KatanaDto from (Katana k) {

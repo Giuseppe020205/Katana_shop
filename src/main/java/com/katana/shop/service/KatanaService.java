@@ -29,7 +29,7 @@ public class KatanaService {
     }
     @Transactional
     public KatanaDto creaKatana(KatanaDto dto) {
-        Katana katana = new Katana(dto.nome(), dto.tipo_acciaio(), dto.prezzo(), dto.giacenza());
+        Katana katana = new Katana(dto.nome(), dto.tipo_acciaio(), dto.prezzo(), dto.giacenza_magazzino());
         Katana salvata = katanaRepository.save(katana);
         return KatanaDto.from(salvata);
     }

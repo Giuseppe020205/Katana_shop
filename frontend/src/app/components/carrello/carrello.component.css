@@ -1,0 +1,145 @@
+.carrello-container {
+  padding: 1rem 0;
+}
+
+.vuoto {
+  text-align: center;
+  color: var(--muted);
+  padding: 3rem 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.righe {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.riga {
+  display: grid;
+  grid-template-columns: 1fr auto 110px auto;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.info h3 {
+  margin: 0 0 0.25rem;
+  color: var(--gold);
+}
+
+.prezzo-unit {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.quantita {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.quantita button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.quantita button:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.quantita button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.subtotale {
+  text-align: right;
+  font-weight: bold;
+}
+
+.rimuovi,
+.link {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.rimuovi:hover,
+.link:hover {
+  color: var(--red-hover);
+}
+
+.riepilogo {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.riepilogo h3 {
+  margin: 0;
+}
+
+.voce {
+  display: flex;
+  justify-content: space-between;
+}
+
+.voce.totale {
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+.btn-primario {
+  display: block;
+  text-align: center;
+  background: var(--red);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primario:hover {
+  background: var(--red-hover);
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .riga {
+    grid-template-columns: 1fr auto;
+  }
+  .subtotale {
+    text-align: left;
+  }
+}

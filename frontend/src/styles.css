@@ -1,1 +1,147 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --text: #f2f2f2;
+  --muted: #aaaaaa;
+  --gold: #d4af37;
+  --red: #c0392b;
+  --red-hover: #e74c3c;
+  --border: #444444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+h2 {
+  color: var(--gold);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------- Pagine di accesso: login, registrazione, profilo ---------- */
+
+.auth-box {
+  max-width: 420px;
+  margin: 1.5rem auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.auth-gruppo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.auth-gruppo label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.auth-campo {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.65rem 0.9rem;
+  font-size: 1rem;
+}
+
+.auth-campo:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-btn:hover:not(:disabled) {
+  background: var(--red-hover);
+}
+
+.auth-btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.auth-btn.secondario {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  margin-top: 1rem;
+}
+
+.auth-btn.secondario:hover {
+  background: transparent;
+  border-color: var(--red-hover);
+  color: var(--red-hover);
+}
+
+.auth-errore {
+  background: var(--red);
+  color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.auth-info {
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.auth-alt {
+  text-align: center;
+  color: var(--muted);
+  margin: 1rem 0 0;
+}
+
+.auth-alt a {
+  color: var(--gold);
+}
+
+.auth-dati dt {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.auth-dati dd {
+  margin: 0;
+  font-size: 1.05rem;
+}

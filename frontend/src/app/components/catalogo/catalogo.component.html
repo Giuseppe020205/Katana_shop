@@ -1,0 +1,90 @@
+<div class="catalogo-container">
+  <app-back-button />
+
+  @if (notifica()) {
+  <div class="notifica">{{ notifica() }}</div>
+  }
+
+  <h2>Catalogo Katane Artigianali</h2>
+
+  @if (caricamento()) {
+  <div class="loading">Caricamento prodotti in corso...</div>
+  }
+
+  @if (errore()) {
+  <div class="error-msg">{{ errore() }}</div>
+  }
+
+  @if (!caricamento() && !errore()) {
+  <div class="toolbar">
+    <input
+      type="search"
+      class="campo ricerca"
+      placeholder="Cerca per nome o tipo di acciaio..."
+      [value]="ricerca()"
+      (input)="ricerca.set(valore($event))" />
+
+    <select class="campo" [value]="tipoSelezionato()" (change)="tipoSelezionato.set(valore($event))">
+      <option value="">Tutti gli acciai</option>
+      @for (t of tipiAcciaio(); track t) {
+      <option [value]="t">{{ t }}</option>
+      }
+    </select>
+
+    <select class="campo" [value]="ordinamento()" (change)="ordinamento.set(valore($event))">
+      <option value="nessuno">Ordina per...</option>
+      <option value="prezzo-asc">Prezzo: dal più basso</option>
+      <option value="prezzo-desc">Prezzo: dal più alto</option>
+    </select>
+  </div>
+
+  <p class="conteggio">{{ katanaFiltrate().length }} di {{ katane().length }} katane</p>
+
+  @if (katane().length === 0) {
+  <div class="vuoto">Nessuna katana disponibile.</div>
+  } @else if (katanaFiltrate().length === 0) {
+  <div class="vuoto">
+    Nessuna katana corrisponde alla ricerca.
+    <button type="button" class="link" (click)="azzeraFiltri()">Azzera i filtri</button>
+  </div>
+  } @else {
+  <div class="katana-grid">
+    @for (k of katanaFiltrate(); track k.id) {
+    <article class="katana-card" [class.esaurita]="k.giacenza_magazzino <= 0">
+      <div class="lama">刀</div>
+      <div class="card-header">
+        <h3>{{ k.nome }}</h3>
+        <span class="badge">{{ k.tipo_acciaio || 'Acciaio Tradizionale' }}</span>
+      </div>
+      <div class="card-body">
+        <p class="prezzo">€ {{ k.prezzo | number:'1.2-2' }}</p>
+        <p class="disponibilita"
+           [class.esaurito]="k.giacenza_magazzino <= 0"
+           [class.pochi]="k.giacenza_magazzino > 0 && k.giacenza_magazzino <= 3">
+          {{ k.giacenza_magazzino <= 0 ? 'Esaurito'
+          : k.giacenza_magazzino <= 3 ? 'Ultimi ' + k.giacenza_magazzino + ' pezzi'
+          : 'Disponibile (' + k.giacenza_magazzino + ' pezzi)' }}
+        </p>
+      </div>
+      <button
+        type="button"
+        class="btn-acquista"
+        [disabled]="k.giacenza_magazzino <= 0 || inCarrello(k) >= k.giacenza_magazzino"
+        (click)="aggiungiAlCarrello(k)">
+        @if (k.giacenza_magazzino <= 0) {
+        Esaurito
+        } @else if (inCarrello(k) >= k.giacenza_magazzino) {
+        Massimo nel carrello
+        } @else {
+        Aggiungi al carrello
+        }
+      </button>
+      @if (inCarrello(k) > 0) {
+      <p class="nel-carrello">Nel carrello: {{ inCarrello(k) }}</p>
+      }
+    </article>
+    }
+  </div>
+  }
+  }
+</div>

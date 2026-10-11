@@ -1,5 +1,5 @@
 package com.katana.shop.exception;
-
+import org.springframework.security.core.AuthenticationException;
 import com.katana.shop.dto.MessaggioResponse;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
@@ -8,6 +8,8 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.dao.DataIntegrityViolationException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(UtenteGiaEsistenteException.class)
@@ -41,6 +43,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<MessaggioResponse> corpoNonLeggibile(HttpMessageNotReadableException e) {
         return risposta(HttpStatus.BAD_REQUEST, "Corpo della richiesta non valido");
+    }
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<MessaggioResponse> nonAutenticato(AuthenticationException e){
+        return risposta(HttpStatus.UNAUTHORIZED, "username e password errati");
+    }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<MessaggioResponse> conflittoDati(DataIntegrityViolationException e) {
+        return risposta(HttpStatus.CONFLICT, "Operazione non riuscita per un conflitto con altri dati, riprova.");
     }
 
     private ResponseEntity<MessaggioResponse> risposta(HttpStatus status, String messaggio) {

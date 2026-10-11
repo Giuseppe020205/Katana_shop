@@ -81,5 +81,8 @@ public class Utente implements UserDetails {
     public String getUsername() {
         return username;
     }
+    public Ruolo getRuolo(){
+        return ruolo;
+    }
 
 }

@@ -1,0 +1,42 @@
+<div class="carrello-container">
+  <app-back-button />
+  <h2>Il tuo carrello</h2>
+
+  @if (carrello.righe().length === 0) {
+  <div class="vuoto">
+    <p>Il carrello è vuoto.</p>
+    <a routerLink="/catalogo" class="btn-primario">Vai al catalogo</a>
+  </div>
+  } @else {
+  <div class="layout">
+    <div class="righe">
+      @for (r of carrello.righe(); track r.id) {
+      <div class="riga">
+        <div class="info">
+          <h3>{{ r.nome }}</h3>
+          <p class="prezzo-unit">€ {{ r.prezzo | number:'1.2-2' }} cad.</p>
+        </div>
+
+        <div class="quantita">
+          <button type="button" (click)="decrementa(r)" [disabled]="r.quantita <= 1" aria-label="Diminuisci">−</button>
+          <span>{{ r.quantita }}</span>
+          <button type="button" (click)="incrementa(r)" [disabled]="r.quantita >= r.giacenza_magazzino" aria-label="Aumenta">+</button>
+        </div>
+
+        <div class="subtotale">€ {{ r.prezzo * r.quantita | number:'1.2-2' }}</div>
+
+        <button type="button" class="rimuovi" (click)="carrello.rimuovi(r.id)">Rimuovi</button>
+      </div>
+      }
+    </div>
+
+    <aside class="riepilogo">
+      <h3>Riepilogo</h3>
+      <div class="voce"><span>Articoli</span><span>{{ carrello.numeroArticoli() }}</span></div>
+      <div class="voce totale"><span>Totale</span><span>€ {{ carrello.totale() | number:'1.2-2' }}</span></div>
+      <a routerLink="/checkout" class="btn-primario">Procedi all'acquisto</a>
+      <button type="button" class="link" (click)="carrello.svuota()">Svuota carrello</button>
+    </aside>
+  </div>
+  }
+</div>

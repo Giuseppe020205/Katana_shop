@@ -1,0 +1,25 @@
+<header class="navbar">
+  <a routerLink="/" class="logo">刀 Katana Shop</a>
+  <nav>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/catalogo" routerLinkActive="active">Catalogo</a>
+
+    @if (auth.loggato()) {
+    <a routerLink="/profilo" routerLinkActive="active">{{ auth.utente()?.username }}</a>
+    <button type="button" class="esci" (click)="auth.logout()">Esci</button>
+    } @else {
+    <a routerLink="/login" routerLinkActive="active">Accedi</a>
+    <a routerLink="/registrazione" routerLinkActive="active">Registrati</a>
+    }
+    <a routerLink="/carrello" routerLinkActive="active">
+      Carrello
+      @if (carrello.numeroArticoli() > 0) {
+      <span class="badge-carrello">{{ carrello.numeroArticoli() }}</span>
+      }
+    </a>
+  </nav>
+</header>
+
+<main class="contenuto">
+  <router-outlet />
+</main>

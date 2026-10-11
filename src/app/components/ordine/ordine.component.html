@@ -1,0 +1,24 @@
+<div class="ordine-box">
+  <app-back-button />
+  <h2>Conferma del Tuo Ordine</h2>
+
+  <div *ngIf="katanaId; else seleziona">
+    <p *ngIf="katana">Stai acquistando: <strong>{{ katana.nome }}</strong> — € {{ katana.prezzo | number:'1.2-2' }}</p>
+    <div class="form-group">
+      <label for="quantita">Quantità desiderata:</label>
+      <input type="number" id="quantita" [(ngModel)]="quantita" min="1" class="input-quantita" />
+    </div>
+
+    <button (click)="confermaAcquisto()" [disabled]="invioInCorso" class="btn-conferma">
+      {{ invioInCorso ? 'Elaborazione...' : 'Conferma e Paga' }}
+    </button>
+  </div>
+
+  <ng-template #seleziona>
+    <p class="warning">Nessun articolo selezionato. Torna al catalogo per scegliere una katana.</p>
+  </ng-template>
+
+  <div *ngIf="messaggioEsito" class="esito-msg" [class.success]="isSuccesso" [class.error]="!isSuccesso">
+    {{ messaggioEsito }}
+  </div>
+</div>

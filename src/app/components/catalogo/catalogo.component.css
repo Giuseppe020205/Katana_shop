@@ -1,0 +1,208 @@
+.catalogo-container {
+  padding: 1rem 0;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.campo {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+.campo:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.ricerca {
+  flex: 1 1 260px;
+}
+
+.conteggio {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0;
+}
+
+.loading,
+.vuoto {
+  color: var(--muted);
+  padding: 2rem 0;
+}
+
+.error-msg {
+  background: var(--red);
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--gold);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0 0.25rem;
+}
+
+.katana-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.katana-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--red);
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.katana-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.katana-card.esaurita {
+  opacity: 0.6;
+}
+
+.lama {
+  font-size: 2.2rem;
+  color: var(--gold);
+  opacity: 0.35;
+  line-height: 1;
+}
+
+.card-header h3 {
+  color: var(--gold);
+  margin: 0 0 0.4rem;
+}
+
+.badge {
+  display: inline-block;
+  background: #333;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  color: var(--muted);
+}
+
+.card-body {
+  flex: 1;
+}
+
+.prezzo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text);
+  margin: 0.25rem 0;
+}
+
+.disponibilita {
+  margin: 0;
+  color: #2ecc71;
+  font-size: 0.9rem;
+}
+
+.disponibilita.pochi {
+  color: #f39c12;
+}
+
+.disponibilita.esaurito {
+  color: var(--red-hover);
+}
+
+.btn-acquista {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--red);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.btn-acquista:hover:not(:disabled) {
+  background-color: var(--red-hover);
+}
+
+.btn-acquista:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+.nel-carrello {
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.notifica {
+  position: fixed;
+  top: 4.5rem;
+  right: 1rem;
+  z-index: 20;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+.riga.non-disponibile {
+  opacity: 0.75;
+  border-color: var(--red);
+}
+
+.avviso {
+  margin: 0.35rem 0 0;
+  color: #f39c12;
+  font-size: 0.85rem;
+}
+
+.non-disponibile .avviso {
+  color: var(--red-hover);
+}
+
+.btn-primario.disabilitato {
+  border: none;
+  width: 100%;
+  font-size: 1rem;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nota {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.errore-carrello {
+  background: var(--red);
+  color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}

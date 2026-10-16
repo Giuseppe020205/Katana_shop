@@ -5,7 +5,6 @@ import com.katana.shop.dto.AuthResponse;
 import com.katana.shop.dto.LoginRequest;
 import com.katana.shop.dto.UtenteDto;
 import com.katana.shop.model.Utente;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;

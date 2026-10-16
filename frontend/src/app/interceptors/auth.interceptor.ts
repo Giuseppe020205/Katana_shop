@@ -20,7 +20,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((err: HttpErrorResponse) => {
       const rottaAccesso = req.url.includes('/api/auth/login') || req.url.includes('/api/auth/register');
       if (err.status === 401 && !rottaAccesso && auth.loggato()) {
-        // Token scaduto o non valido: si esce e si torna al login
         auth.logout(false);
         router.navigate(['/login'], { queryParams: { sessioneScaduta: 1 } });
       }

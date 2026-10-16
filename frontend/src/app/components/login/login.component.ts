@@ -9,6 +9,7 @@ import { BackButtonComponent } from '../shared/back-button.component';
   standalone: true,
   imports: [RouterLink, BackButtonComponent],
   template: `
+    <div class="auth-sfondo"></div>
     <div class="auth-box">
       <app-back-button />
       <h2>Accedi</h2>

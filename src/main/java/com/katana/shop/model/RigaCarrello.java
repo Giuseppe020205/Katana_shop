@@ -1,8 +1,5 @@
 package com.katana.shop.model;
 
-
-import com.katana.shop.service.KatanaService;
-import com.katana.shop.service.UtenteService;
 import jakarta.persistence.*;
 
 @Entity

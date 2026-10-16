@@ -1,0 +1,15 @@
+<div class="esito-box annullato">
+  <div class="simbolo">✕</div>
+  <h2>Pagamento annullato</h2>
+
+  @if (ordineId()) {
+  <p>Ordine <span class="numero-ordine">#{{ ordineId() }}</span> non pagato</p>
+  }
+
+  <p class="testo">Non ti è stato addebitato nulla. Gli articoli sono ancora nel carrello e puoi riprovare quando vuoi.</p>
+
+  <div class="azioni">
+    <a routerLink="/carrello" class="btn-primario">Torna al carrello</a>
+    <a routerLink="/catalogo" class="btn-secondario">Continua lo shopping</a>
+  </div>
+</div>

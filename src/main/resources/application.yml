@@ -16,11 +16,13 @@ spring:
 app:
   cors:
     allowed-origin: ${CORS_ORIGIN:http://localhost:4200}
+  frontend-url: ${FRONTEND_URL:http://localhost:4200}
   jwt:
-    # In produzione impostare la variabile d'ambiente JWT_SECRET (almeno 32 caratteri)
     secret: ${JWT_SECRET:cambia-questo-segreto-solo-per-sviluppo-0123456789}
-    expiration-ms: 3600000   # 1 ora
-
+    expiration-ms: 3600000
+  stripe:
+    secret-key: ${STRIPE_SECRET_KEY:}
+    webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
 ---
 spring:
   config:

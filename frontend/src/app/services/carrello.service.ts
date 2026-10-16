@@ -15,6 +15,9 @@ export interface RigaCarrello {
   quantita: number;
   disponibile: boolean;
   avviso: string | null;
+  prezzoOriginale?: number;
+  percentualeSconto?: number | null;
+  immagine?: string | null;
 }
 
 export interface EsitoAggiunta {
@@ -22,7 +25,6 @@ export interface EsitoAggiunta {
   messaggio: string;
 }
 
-// Risposta del server
 interface RigaCarrelloDto {
   katanaId: number;
   nome: string;
@@ -32,13 +34,18 @@ interface RigaCarrelloDto {
   subtotale: number;
   disponibile: boolean;
   avviso: string | null;
+  prezzoOriginale: number;
+  percentualeSconto: number | null;
+  immagine?: string | null;
 }
+
 
 interface CarrelloDto {
   righe: RigaCarrelloDto[];
   numeroArticoli: number;
   totale: number;
   acquistabile: boolean;
+  immagine: string | null;
 }
 
 const API = 'http://localhost:8080/api/carrello';
@@ -71,7 +78,6 @@ export class CarrelloService {
   );
 
   constructor() {
-    // Il carrello segue l'utente: a ogni login o logout cambia proprietario
     effect(() => {
       const utente = this.auth.utente();
       untracked(() => this.cambiaProprietario(utente));
@@ -107,11 +113,14 @@ export class CarrelloService {
     const nuova: RigaCarrello = {
       id: k.id,
       nome: k.nome,
-      prezzo: k.prezzo,
+      prezzo: k.inOfferta && k.prezzoScontato != null ? k.prezzoScontato : k.prezzo,
+      prezzoOriginale: k.prezzo,
+      percentualeSconto: k.inOfferta ? k.percentualeSconto ?? null : null,
       giacenza_magazzino: k.giacenza_magazzino,
       quantita: prima + quantita,
       disponibile: true,
-      avviso: null
+      avviso: null,
+      immagine: k.immagine ?? null,
     };
     this.salvaOspite(
       righe.some(r => r.id === k.id) ? righe.map(r => (r.id === k.id ? nuova : r)) : [...righe, nuova]
@@ -158,7 +167,19 @@ export class CarrelloService {
     }
     this.salvaOspite([]);
   }
-
+  async ricarica(): Promise<boolean> {
+      const utenteId = this.auth.utente()?.id;
+      if (utenteId == null || !isPlatformBrowser(this.platformId)) return false;
+      try {
+        const carrello = await firstValueFrom(this.http.get<CarrelloDto>(API));
+        if (this.auth.utente()?.id !== utenteId) return false;
+        this.applica(carrello);
+        return true;
+      } catch (err) {
+        this.erroreSignal.set(messaggioErrore(err, 'Impossibile caricare il carrello.'));
+        return false;
+      }
+    }
   private quantitaDi(id: number): number {
     return this.righeSignal().find(r => r.id === id)?.quantita ?? 0;
   }
@@ -188,7 +209,6 @@ export class CarrelloService {
 
     richiesta.subscribe({
       next: (c) => {
-        // Se nel frattempo l'utente è cambiato o è uscito, la risposta non vale più
         if (this.auth.utente()?.id !== utente.id) return;
         this.scriviOspite([]);
         this.applica(c);
@@ -202,19 +222,22 @@ export class CarrelloService {
     });
   }
 
-  private applica(c: CarrelloDto): void {
-    this.righeSignal.set(
-      c.righe.map(r => ({
-        id: r.katanaId,
-        nome: r.nome,
-        prezzo: r.prezzo,
-        giacenza_magazzino: r.giacenza_magazzino,
-        quantita: r.quantita,
-        disponibile: r.disponibile,
-        avviso: r.avviso
-      }))
-    );
-  }
+   private applica(c: CarrelloDto): void {
+     this.righeSignal.set(
+       c.righe.map(r => ({
+         id: r.katanaId,
+         nome: r.nome,
+         prezzo: r.prezzo,
+         prezzoOriginale: r.prezzoOriginale,
+         percentualeSconto: r.percentualeSconto,
+         giacenza_magazzino: r.giacenza_magazzino,
+         quantita: r.quantita,
+         disponibile: r.disponibile,
+         avviso: r.avviso,
+         immagine: r.immagine ?? null,
+       }))
+     );
+   }
 
   private salvaOspite(righe: RigaCarrello[]): void {
     this.righeSignal.set(righe);

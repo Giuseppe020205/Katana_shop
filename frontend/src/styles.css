@@ -37,7 +37,41 @@ button {
   font-family: inherit;
 }
 
-/* ---------- Pagine di accesso: login, registrazione, profilo ---------- */
+.auth-sfondo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.45)),
+    url('/samurai-sfondo.jpg') center / cover no-repeat;
+}
+
+.auth-sfondo + .auth-box {
+  position: relative;
+  z-index: 1;
+  background: rgba(30, 30, 30, 0.9);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  margin: 0.5rem auto 0;
+  padding: 1.1rem 1.5rem;
+}
+
+.auth-sfondo + .auth-box h2 {
+  margin-bottom: 0.8rem;
+}
+
+.auth-sfondo + .auth-box .auth-gruppo {
+  gap: 0.25rem;
+  margin-bottom: 0.7rem;
+}
+
+.auth-sfondo + .auth-box .auth-campo {
+  padding: 0.5rem 0.9rem;
+}
+
+.auth-sfondo + .auth-box .auth-alt {
+  margin: 0.7rem 0 0;
+}
 
 .auth-box {
   max-width: 420px;

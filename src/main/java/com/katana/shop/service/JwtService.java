@@ -32,7 +32,6 @@ public class JwtService {
                 .compact();
     }
 
-    // Lancia JwtException se il token è falso, manomesso o scaduto
     public String estraiUsername(String token) {
         return claims(token).getSubject();
     }

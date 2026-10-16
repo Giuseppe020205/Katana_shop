@@ -7,10 +7,11 @@ import com.katana.shop.model.Katana;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
- @Transactional(readOnly = true)
+@Transactional(readOnly = true)
 public class KatanaService {
     private final KatanaRepository katanaRepository;
 
@@ -22,14 +23,24 @@ public class KatanaService {
         return katanaRepository.findAll().stream().map(KatanaDto::from).toList();
     }
 
+    public List<KatanaDto> elencoOfferte() {
+        return katanaRepository.findAll().stream()
+                .filter(k -> k.inOfferta() && k.getGiacenza_magazzino() > 0)
+                .sorted(Comparator.comparingInt(Katana::getPercentualeSconto).reversed())
+                .map(KatanaDto::from)
+                .toList();
+    }
+
     public KatanaDto trovaPerId(Long id) {
         return katanaRepository.findById(id)
                 .map(KatanaDto::from)
                 .orElseThrow(() -> new KatanaNonTrovataException(id));
     }
+
     @Transactional
     public KatanaDto creaKatana(KatanaDto dto) {
         Katana katana = new Katana(dto.nome(), dto.tipo_acciaio(), dto.prezzo(), dto.giacenza_magazzino());
+        katana.setImmagine(dto.immagine());
         Katana salvata = katanaRepository.save(katana);
         return KatanaDto.from(salvata);
     }

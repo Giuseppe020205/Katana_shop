@@ -1,3 +1,8 @@
+
+
+
+
+<div class="catalogo-sfondo"></div>
 <div class="catalogo-container">
   <app-back-button />
 
@@ -32,10 +37,22 @@
     </select>
 
     <select class="campo" [value]="ordinamento()" (change)="ordinamento.set(valore($event))">
-      <option value="nessuno">Ordina per...</option>
-      <option value="prezzo-asc">Prezzo: dal più basso</option>
-      <option value="prezzo-desc">Prezzo: dal più alto</option>
+      <option value="nessuno">Ordina o filtra per...</option>
+      <optgroup label="Ordina">
+        <option value="prezzo-asc">Prezzo: dal più basso</option>
+        <option value="prezzo-desc">Prezzo: dal più alto</option>
+      </optgroup>
+      <optgroup label="Fascia di prezzo">
+        @for (f of fasce; track f.id) {
+        <option [value]="'fascia-' + f.id">{{ f.etichetta }}</option>
+        }
+      </optgroup>
     </select>
+
+    <label class="filtro-offerte">
+      <input type="checkbox" [checked]="soloOfferte()" (change)="soloOfferte.set(selezionato($event))" />
+      Solo offerte
+    </label>
   </div>
 
   <p class="conteggio">{{ katanaFiltrate().length }} di {{ katane().length }} katane</p>
@@ -51,13 +68,21 @@
   <div class="katana-grid">
     @for (k of katanaFiltrate(); track k.id) {
     <article class="katana-card" [class.esaurita]="k.giacenza_magazzino <= 0">
-      <div class="lama">刀</div>
+      @if (k.inOfferta) {
+      <span class="nastro">Offerta</span>
+      }
+      <app-katana-immagine [src]="k.immagine" [alt]="k.nome" />
       <div class="card-header">
         <h3>{{ k.nome }}</h3>
         <span class="badge">{{ k.tipo_acciaio || 'Acciaio Tradizionale' }}</span>
       </div>
       <div class="card-body">
-        <p class="prezzo">€ {{ k.prezzo | number:'1.2-2' }}</p>
+        <p class="prezzo">
+          <app-prezzo-katana [prezzo]="k.prezzo" [prezzoScontato]="k.prezzoScontato" [percentuale]="k.percentualeSconto" />
+        </p>
+        @if (k.inOfferta && k.offertaFine) {
+        <p class="scadenza">Offerta fino al {{ k.offertaFine | date:'dd/MM/yyyy' }}</p>
+        }
         <p class="disponibilita"
            [class.esaurito]="k.giacenza_magazzino <= 0"
            [class.pochi]="k.giacenza_magazzino > 0 && k.giacenza_magazzino <= 3">
@@ -66,19 +91,35 @@
           : 'Disponibile (' + k.giacenza_magazzino + ' pezzi)' }}
         </p>
       </div>
-      <button
-        type="button"
-        class="btn-acquista"
-        [disabled]="k.giacenza_magazzino <= 0 || inCarrello(k) >= k.giacenza_magazzino"
-        (click)="aggiungiAlCarrello(k)">
-        @if (k.giacenza_magazzino <= 0) {
-        Esaurito
-        } @else if (inCarrello(k) >= k.giacenza_magazzino) {
-        Massimo nel carrello
-        } @else {
+      @if (k.giacenza_magazzino <= 0) {
+      <button type="button" class="btn-acquista" disabled>Esaurito</button>
+      } @else if (disponibiliDaAggiungere(k) <= 0) {
+      <button type="button" class="btn-acquista" disabled>Massimo nel carrello</button>
+      } @else if (quantitaScelta(k) === 0) {
+      <button type="button" class="btn-acquista" (click)="apriSelettore(k)">
         Aggiungi al carrello
-        }
       </button>
+      } @else {
+      <div class="quantita">
+        <button
+          type="button"
+          class="btn-quantita"
+          aria-label="Diminuisci quantità"
+          [disabled]="quantitaScelta(k) <= 1"
+          (click)="diminuisci(k)">−</button>
+        <span class="quantita-valore">{{ quantitaScelta(k) }}</span>
+        <button
+          type="button"
+          class="btn-quantita"
+          aria-label="Aumenta quantità"
+          [disabled]="quantitaScelta(k) >= disponibiliDaAggiungere(k)"
+          (click)="aumenta(k)">+</button>
+      </div>
+      <div class="azioni-quantita">
+        <button type="button" class="btn-annulla" (click)="chiudiSelettore(k)">Annulla</button>
+        <button type="button" class="btn-acquista" (click)="conferma(k)">Conferma</button>
+      </div>
+      }
       @if (inCarrello(k) > 0) {
       <p class="nel-carrello">Nel carrello: {{ inCarrello(k) }}</p>
       }

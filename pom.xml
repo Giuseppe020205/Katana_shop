@@ -24,6 +24,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.stripe</groupId>
+      <artifactId>stripe-java</artifactId>
+      <version>33.4.1</version>
+    </dependency>
     <!-- API REST (Spring MVC + Tomcat embedded + Jackson) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

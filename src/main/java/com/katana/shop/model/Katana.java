@@ -1,6 +1,10 @@
 package com.katana.shop.model;
+
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Katane")
@@ -9,29 +13,70 @@ public class Katana {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "nome",nullable = false,length = 100)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column (name= "tipo_acciaio", length = 50)
+    @Column(name = "tipo_acciaio", length = 50)
     private String tipo_acciaio;
 
-    @Column (name = "prezzo",nullable = false)
+    @Column(name = "prezzo", nullable = false)
     private BigDecimal prezzo;
 
-    @Column (name = "giacenza_magazzino")
+    @Column(name = "giacenza_magazzino")
     private int giacenza_magazzino;
+
+
+    @Column(name = "immagine", length = 255)
+    private String immagine;
+
+    @Column(name = "percentuale_sconto")
+    private Integer percentualeSconto;
+
+    @Column(name = "offerta_inizio")
+    private LocalDateTime offertaInizio;
+
+    @Column(name = "offerta_fine")
+    private LocalDateTime offertaFine;
 
     @Version
     private Long version;
 
-    public Katana(){}
-
-    public Katana(String nome,String tipo_acciaio,BigDecimal prezzo,int giacenza_magazzino){
-        this.nome=nome;
-        this.tipo_acciaio=tipo_acciaio;
-        this.giacenza_magazzino=giacenza_magazzino;
-        this.prezzo=prezzo;
+    public Katana() {
     }
+
+    public Katana(String nome, String tipo_acciaio, BigDecimal prezzo, int giacenza_magazzino) {
+        this.nome = nome;
+        this.tipo_acciaio = tipo_acciaio;
+        this.giacenza_magazzino = giacenza_magazzino;
+        this.prezzo = prezzo;
+    }
+
+    public boolean inOfferta() {
+        return inOfferta(LocalDateTime.now());
+    }
+
+    public boolean inOfferta(LocalDateTime adesso) {
+        if (percentualeSconto == null || percentualeSconto <= 0) {
+            return false;
+        }
+        if (offertaInizio != null && adesso.isBefore(offertaInizio)) {
+            return false;
+        }
+        if (offertaFine != null && adesso.isAfter(offertaFine)) {
+            return false;
+        }
+        return true;
+    }
+
+    public BigDecimal getPrezzoEffettivo() {
+        if (!inOfferta()) {
+            return prezzo;
+        }
+        return prezzo
+                .multiply(BigDecimal.valueOf(100 - percentualeSconto))
+                .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+    }
+
     public void setPrezzo(BigDecimal prezzo) {
         this.prezzo = prezzo;
     }
@@ -80,5 +125,23 @@ public class Katana {
         this.version = version;
     }
 
-}
+    public String getImmagine() {
+        return immagine;
+    }
 
+    public void setImmagine(String immagine) {
+        this.immagine = immagine;
+    }
+
+    public Integer getPercentualeSconto() {
+        return percentualeSconto;
+    }
+
+    public LocalDateTime getOffertaInizio() {
+        return offertaInizio;
+    }
+
+    public LocalDateTime getOffertaFine() {
+        return offertaFine;
+    }
+}

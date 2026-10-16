@@ -7,6 +7,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrazioneComponent } from './components/registrazione/registrazione.component';
 import { ProfiloComponent } from './components/profilo/profilo.component';
 import { authGuard } from './guards/auth.guard';
+import { PagamentoSuccessoComponent } from './components/pagamento/pagamento-successo.component';
+import { PagamentoAnnullatoComponent } from './components/pagamento/pagamento-annullato.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +18,8 @@ export const routes: Routes = [
   { path: 'ordine/:id', component: OrdineComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registrazione', component: RegistrazioneComponent },
+  { path: 'pagamento/successo', component: PagamentoSuccessoComponent },
+  { path: 'pagamento/annullato', component: PagamentoAnnullatoComponent },
   { path: 'profilo', component: ProfiloComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '' }
 ];

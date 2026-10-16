@@ -25,7 +25,6 @@ public class GlobalExceptionHandler {
         return risposta(HttpStatus.CONFLICT, e.getMessage());
     }
 
-    // Lanciata da @Version quando due acquisti modificano la stessa katana contemporaneamente
     @ExceptionHandler(OptimisticLockingFailureException.class)
     public ResponseEntity<MessaggioResponse> conflittoDiConcorrenza(OptimisticLockingFailureException e) {
         return risposta(HttpStatus.CONFLICT, "La katana è stata modificata da un altro acquisto, riprova.");
@@ -52,9 +51,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<MessaggioResponse> conflittoDati(DataIntegrityViolationException e) {
         return risposta(HttpStatus.CONFLICT, "Operazione non riuscita per un conflitto con altri dati, riprova.");
     }
+    @ExceptionHandler(CarrelloNonAcquistabileException.class)
+    public ResponseEntity<MessaggioResponse> carrelloNonAcquistabile(CarrelloNonAcquistabileException e) {
+        return risposta(HttpStatus.CONFLICT, e.getMessage());
+    }
+    @ExceptionHandler(PagamentoNonDisponibileException.class)
+    public ResponseEntity<MessaggioResponse> pagamentoNonDisponibile(PagamentoNonDisponibileException e) {
+        return risposta(HttpStatus.SERVICE_UNAVAILABLE, e.getMessage());
+    }
 
     private ResponseEntity<MessaggioResponse> risposta(HttpStatus status, String messaggio) {
         return ResponseEntity.status(status).body(new MessaggioResponse(messaggio));
     }
+
 }
 

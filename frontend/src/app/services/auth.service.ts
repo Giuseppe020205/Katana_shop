@@ -44,7 +44,6 @@ export class AuthService {
     return this.http.get<UtenteAutenticato>(`${this.apiUrl}/me`);
   }
 
-  // Uscita voluta dall'utente (pulsanti "Esci")
   esci(): void {
     this.logout();
   }

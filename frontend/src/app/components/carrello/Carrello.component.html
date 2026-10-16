@@ -12,9 +12,19 @@
     <div class="righe">
       @for (r of carrello.righe(); track r.id) {
       <div class="riga">
+        <app-katana-immagine [src]="r.immagine" [alt]="r.nome" />
+
         <div class="info">
           <h3>{{ r.nome }}</h3>
-          <p class="prezzo-unit">€ {{ r.prezzo | number:'1.2-2' }} cad.</p>
+          <p class="prezzo-unit">
+            <app-prezzo-katana
+              [prezzo]="r.prezzoOriginale ?? r.prezzo"
+              [prezzoScontato]="r.percentualeSconto ? r.prezzo : null"
+              [percentuale]="r.percentualeSconto" /> cad.
+          </p>
+          @if (r.avviso) {
+          <p class="avviso">{{ r.avviso }}</p>
+          }
         </div>
 
         <div class="quantita">
@@ -34,7 +44,16 @@
       <h3>Riepilogo</h3>
       <div class="voce"><span>Articoli</span><span>{{ carrello.numeroArticoli() }}</span></div>
       <div class="voce totale"><span>Totale</span><span>€ {{ carrello.totale() | number:'1.2-2' }}</span></div>
-      <a routerLink="/checkout" class="btn-primario">Procedi all'acquisto</a>
+      @if (erroreCheckout()) {
+      <p class="errore-checkout">{{ erroreCheckout() }}</p>
+      }
+      <button type="button" class="btn-primario" (click)="procediAlPagamento()"
+              [disabled]="pagamentoInCorso() || carrello.caricamento() || !carrello.acquistabile()">
+        {{ pagamentoInCorso() ? 'Apertura del pagamento...' : "Procedi all'acquisto" }}
+      </button>
+      @if (!carrello.acquistabile()) {
+      <p class="nota">Rimuovi o correggi gli articoli non disponibili per procedere.</p>
+      }
       <button type="button" class="link" (click)="carrello.svuota()">Svuota carrello</button>
     </aside>
   </div>

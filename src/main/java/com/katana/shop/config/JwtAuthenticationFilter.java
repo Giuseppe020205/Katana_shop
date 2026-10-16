@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (JwtException | IllegalArgumentException | UsernameNotFoundException e) {
-                // Token non valido o scaduto: la richiesta resta anonima
+
             }
         }
         filterChain.doFilter(request, response);

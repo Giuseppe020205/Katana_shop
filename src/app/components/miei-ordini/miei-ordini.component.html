@@ -1,0 +1,49 @@
+<div class="ordini-container">
+  <app-back-button />
+  <h2>I miei ordini</h2>
+
+  @if (caricamento()) {
+  <p class="info">Caricamento...</p>
+  } @else if (errore()) {
+  <p class="errore">{{ errore() }}</p>
+  } @else if (ordini().length === 0) {
+  <div class="vuoto">
+    <p>Non hai ancora ordini completati o annullati.</p>
+    <a routerLink="/catalogo" class="btn-primario">Vai al catalogo</a>
+  </div>
+  } @else {
+  <div class="lista">
+    @for (o of ordini(); track o.id) {
+    <article class="ordine" [class.annullato]="o.stato === 'ANNULLATO'">
+      <header class="intestazione">
+        <div>
+          <h3>Ordine n. {{ o.id }}</h3>
+          <p class="data">{{ o.dataOrdine | date:'dd/MM/yyyy HH:mm' }}</p>
+        </div>
+        <span class="stato" [class.pagato]="o.stato === 'PAGATO'" [class.annullato]="o.stato === 'ANNULLATO'">
+          {{ etichettaStato(o.stato) }}
+        </span>
+      </header>
+
+      <ul class="righe">
+        @for (r of o.righe; track r.katanaId) {
+        <li class="riga">
+          <app-katana-immagine [src]="r.immagine" [alt]="r.nome" />
+          <div class="nome">
+            <strong>{{ r.nome }}</strong>
+            <span class="dettaglio">{{ r.quantita }} × € {{ r.prezzoUnitario | number:'1.2-2' }}</span>
+          </div>
+          <div class="subtotale">€ {{ r.subtotale | number:'1.2-2' }}</div>
+        </li>
+        }
+      </ul>
+
+      <footer class="totale">
+        <span>Totale</span>
+        <span>€ {{ o.totale | number:'1.2-2' }}</span>
+      </footer>
+    </article>
+    }
+  </div>
+  }
+</div>

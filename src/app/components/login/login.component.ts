@@ -9,6 +9,7 @@ import { BackButtonComponent } from '../shared/back-button.component';
   standalone: true,
   imports: [RouterLink, BackButtonComponent],
   template: `
+    <div class="auth-sfondo"></div>
     <div class="auth-box">
       <app-back-button />
       <h2>Accedi</h2>
@@ -65,7 +66,7 @@ export class LoginComponent {
         this.invio.set(false);
         const destinazione = this.route.snapshot.queryParamMap.get('returnUrl');
         const sicura = destinazione && destinazione.startsWith('/') && !destinazione.startsWith('//');
-        this.router.navigateByUrl(sicura ? destinazione : '/catalogo');
+        this.router.navigateByUrl(sicura ? destinazione : '/');
       },
       error: (err) => {
         this.invio.set(false);

@@ -1,15 +1,27 @@
 <header class="navbar">
-  <a routerLink="/" class="logo">刀 Katana Shop</a>
+  <div class="navbar-sinistra">
+    <button
+      type="button"
+      class="hamburger"
+      [class.aperto]="menuAperto()"
+      (click)="toggleMenu()"
+      aria-label="Apri il menu"
+      aria-controls="menu-laterale"
+      [attr.aria-expanded]="menuAperto()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <a routerLink="/" class="logo" (click)="chiudiMenu()">刀 Katana Shop</a>
+  </div>
+
   <nav>
     <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-    <a routerLink="/catalogo" routerLinkActive="active">Catalogo</a>
 
     @if (auth.loggato()) {
     <a routerLink="/profilo" routerLinkActive="active">{{ auth.utente()?.username }}</a>
     <button type="button" class="esci" (click)="auth.logout()">Esci</button>
-    } @else {
-    <a routerLink="/login" routerLinkActive="active">Accedi</a>
-    <a routerLink="/registrazione" routerLinkActive="active">Registrati</a>
     }
     <a routerLink="/carrello" routerLinkActive="active">
       Carrello
@@ -19,6 +31,30 @@
     </a>
   </nav>
 </header>
+
+<div class="overlay" [class.visibile]="menuAperto()" (click)="chiudiMenu()"></div>
+
+<aside
+  id="menu-laterale"
+  class="menu-laterale"
+  [class.aperto]="menuAperto()"
+  [attr.aria-hidden]="!menuAperto()"
+  [attr.inert]="menuAperto() ? null : ''"
+>
+  <div class="menu-intestazione">
+    <span class="menu-titolo">Menu</span>
+    <button type="button" class="menu-chiudi" (click)="chiudiMenu()" aria-label="Chiudi il menu">✕</button>
+  </div>
+
+  <a routerLink="/catalogo" routerLinkActive="active" (click)="chiudiMenu()">Catalogo</a>
+
+  @if (auth.loggato()) {
+  <a routerLink="/miei-ordini" routerLinkActive="active" (click)="chiudiMenu()">I miei ordini</a>
+  } @else {
+  <a routerLink="/login" routerLinkActive="active" (click)="chiudiMenu()">Accedi</a>
+  <a routerLink="/registrazione" routerLinkActive="active" (click)="chiudiMenu()">Registrati</a>
+  }
+</aside>
 
 <main class="contenuto">
   <router-outlet />

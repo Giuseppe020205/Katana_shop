@@ -1,11 +1,33 @@
+
+.carrello-sfondo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75)),
+    url('/SP241Z.jpg') center / cover no-repeat;
+}
+
 .carrello-container {
+  position: relative;
+  z-index: 1;
   padding: 1rem 0;
+}
+
+.carrello-container h2 {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .vuoto {
   text-align: center;
-  color: var(--muted);
-  padding: 3rem 0;
+  color: var(--text);
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
+  background: rgba(30, 30, 30, 0.88);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
 }
 
 .layout {
@@ -23,10 +45,11 @@
 
 .riga {
   display: grid;
-  grid-template-columns: 1fr auto 110px auto;
+  grid-template-columns: 88px 1fr auto 110px auto;
   align-items: center;
   gap: 1rem;
-  background: var(--surface);
+  background: rgba(30, 30, 30, 0.88);
+  backdrop-filter: blur(4px);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1rem 1.25rem;
@@ -41,6 +64,11 @@
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+.avviso {
+  margin: 0.25rem 0 0;
+  color: var(--red-hover);
+  font-size: 0.85rem;
 }
 
 .quantita {
@@ -90,7 +118,9 @@
 }
 
 .riepilogo {
-  background: var(--surface);
+  background: rgba(30, 30, 30, 0.92);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
   border: 1px solid var(--border);
   border-top: 3px solid var(--red);
   border-radius: 8px;
@@ -128,8 +158,34 @@
   transition: background-color 0.2s ease;
 }
 
-.btn-primario:hover {
+button.btn-primario {
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-primario:hover:not(:disabled) {
   background: var(--red-hover);
+}
+
+.btn-primario:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.errore-checkout {
+  margin: 0;
+  background: var(--red);
+  color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+}
+
+.nota {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 @media (max-width: 800px) {
@@ -137,7 +193,7 @@
     grid-template-columns: 1fr;
   }
   .riga {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 88px 1fr;
   }
   .subtotale {
     text-align: left;

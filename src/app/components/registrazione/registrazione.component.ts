@@ -10,6 +10,7 @@ import { BackButtonComponent } from '../shared/back-button.component';
   standalone: true,
   imports: [RouterLink, BackButtonComponent],
   template: `
+    <div class="auth-sfondo"></div>
     <div class="auth-box">
       <app-back-button />
       <h2>Crea un account</h2>
@@ -87,14 +88,13 @@ export class RegistrazioneComponent {
     this.errore.set(null);
     this.invio.set(true);
 
-    // Dopo la registrazione si entra subito con le stesse credenziali
     this.auth
       .registra(username, email, password)
       .pipe(switchMap(() => this.auth.login(username, password)))
       .subscribe({
         next: () => {
           this.invio.set(false);
-          this.router.navigateByUrl('/catalogo');
+          this.router.navigateByUrl('/');
         },
         error: (err) => {
           this.invio.set(false);

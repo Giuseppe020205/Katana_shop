@@ -1,0 +1,21 @@
+<div class="esito-box">
+  <div class="simbolo">✓</div>
+  <h2>Pagamento completato</h2>
+
+  @if (ordineId()) {
+  <p>Ordine <span class="numero-ordine">#{{ ordineId() }}</span></p>
+  }
+
+  @if (confermato()) {
+  <p class="testo">Grazie per l'acquisto! L'ordine è confermato e la tua katana è in preparazione.</p>
+  } @else if (inAttesa()) {
+  <p class="testo">Stiamo registrando l'ordine...</p>
+  } @else {
+  <p class="testo">Il pagamento è andato a buon fine. La conferma dell'ordine può richiedere qualche istante: non serve pagare di nuovo.</p>
+  }
+
+  <div class="azioni">
+    <a routerLink="/catalogo" class="btn-primario">Continua lo shopping</a>
+    <a routerLink="/" class="btn-secondario">Torna alla home</a>
+  </div>
+</div>

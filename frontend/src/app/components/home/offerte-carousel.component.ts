@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Katana } from '../../models/katana.model';
 import { CarrelloService } from '../../services/carrello.service';
 import { PrezzoKatanaComponent } from '../shared/prezzo-katana.component';
+import { KatanaImmagineComponent } from '../shared/katana-immagine.component';
 
 const INTERVALLO_MS = 4000;
 const PAUSA_DOPO_INTERAZIONE_MS = 8000;
@@ -12,7 +13,7 @@ const SPAZIO = 16;
 @Component({
   selector: 'app-offerte-carousel',
   standalone: true,
-  imports: [DatePipe, RouterLink, PrezzoKatanaComponent],
+  imports: [DatePipe, RouterLink, PrezzoKatanaComponent, KatanaImmagineComponent],
   template: `
     @if (offerte().length > 0) {
       <section
@@ -37,7 +38,7 @@ const SPAZIO = 16;
                (touchstart)="interazione()" (wheel)="interazione()" (pointerdown)="interazione()">
             @for (k of offerte(); track k.id) {
               <article class="scheda">
-                <div class="lama">刀</div>
+                <app-katana-immagine [src]="k.immagine" [alt]="k.nome" />
                 <h3>{{ k.nome }}</h3>
                 <span class="badge">{{ k.tipo_acciaio || 'Acciaio Tradizionale' }}</span>
                 <p class="prezzo">
@@ -120,11 +121,8 @@ const SPAZIO = 16;
       border-radius: 8px;
       padding: 1.25rem;
     }
-    .lama {
-      color: var(--gold);
-      font-size: 2rem;
-      line-height: 1;
-      opacity: 0.35;
+    app-katana-immagine {
+      margin-bottom: 0.25rem;
     }
     .scheda h3 {
       margin: 0;

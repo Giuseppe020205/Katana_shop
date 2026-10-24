@@ -37,11 +37,5 @@ public class KatanaService {
                 .orElseThrow(() -> new KatanaNonTrovataException(id));
     }
 
-    @Transactional
-    public KatanaDto creaKatana(KatanaDto dto) {
-        Katana katana = new Katana(dto.nome(), dto.tipo_acciaio(), dto.prezzo(), dto.giacenza_magazzino());
-        katana.setImmagine(dto.immagine());
-        Katana salvata = katanaRepository.save(katana);
-        return KatanaDto.from(salvata);
-    }
+
 }

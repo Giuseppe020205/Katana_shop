@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Service
-public class JwtService {
+public class  JwtService {
     private final SecretKey chiave;
     private final long scadenzaMs;
 
@@ -22,15 +22,15 @@ public class JwtService {
         this.scadenzaMs = scadenzaMs;
     }
 
-    public String genera(UserDetails utente) {
-        Date ora = new Date();
-        return Jwts.builder()
-                .subject(utente.getUsername())
-                .issuedAt(ora)
-                .expiration(new Date(ora.getTime() + scadenzaMs))
-                .signWith(chiave)
-                .compact();
-    }
+        public String genera(UserDetails utente) {
+            Date ora = new Date();
+            return Jwts.builder()
+                    .subject(utente.getUsername())
+                    .issuedAt(ora)
+                    .expiration(new Date(ora.getTime() + scadenzaMs))
+                    .signWith(chiave)
+                    .compact();
+        }
 
     public String estraiUsername(String token) {
         return claims(token).getSubject();

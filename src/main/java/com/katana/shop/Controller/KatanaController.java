@@ -1,5 +1,4 @@
 package com.katana.shop.Controller;
-
 import com.katana.shop.dto.KatanaDto;
 import com.katana.shop.service.KatanaService;
 import jakarta.validation.Valid;
@@ -32,9 +31,5 @@ public class KatanaController {
         return katanaService.trovaPerId(id);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public KatanaDto createKatana(@Valid @RequestBody KatanaDto katanaDto) {
-        return katanaService.creaKatana(katanaDto);
-    }
+
 }

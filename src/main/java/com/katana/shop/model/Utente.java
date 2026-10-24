@@ -2,7 +2,6 @@ package com.katana.shop.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -25,23 +24,17 @@ public class Utente implements UserDetails {
     @Column(nullable = false,unique =true,length = 100)
     private String email;
 
-    private Ruolo ruolo= Ruolo.USER;
-
-    @OneToMany(mappedBy = "utente",cascade = CascadeType.ALL)
-    private List<Ordine> ordini=new ArrayList<>();
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + ruolo.name()));
+        return List.of();
     }
     public Utente(){
 
     }
-    public Utente(String username,String password,String email,Ruolo ruolo){
+    public Utente(String username,String password,String email){
         this.username=username;
         this.email=email;
         this.password=password;
-        this.ruolo=ruolo;
     }
 
     public Long getId() {
@@ -80,9 +73,6 @@ public class Utente implements UserDetails {
     @Override
     public String getUsername() {
         return username;
-    }
-    public Ruolo getRuolo(){
-        return ruolo;
     }
 
 }

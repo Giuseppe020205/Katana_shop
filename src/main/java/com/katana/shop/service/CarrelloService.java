@@ -18,9 +18,9 @@ import java.util.List;
 
 @Service
 public class CarrelloService {
-    private RigaCarrelloRepository rigaCarrelloRepository;
-    private KatanaRepository katanaRepository;
-    private UtenteRepository utenteRepository;
+    private final RigaCarrelloRepository rigaCarrelloRepository;
+    private final KatanaRepository katanaRepository;
+    private final UtenteRepository utenteRepository;
 
     public CarrelloService(RigaCarrelloRepository rigaCarrelloRepository,KatanaRepository katanaRepository, UtenteRepository utenteRepository){
         this.katanaRepository=katanaRepository;
@@ -66,6 +66,7 @@ public class CarrelloService {
         rigaCarrelloRepository.svuotaCarrello(utenteId);
         return carrello(utenteId);
     }
+    //unisce il carrello dell' ospite con quello dell' utente loggato
     @Transactional
     public CarrelloDto unisci(Long utenteId, List<CarrelloRequest> car) {
         for (CarrelloRequest c : car) {

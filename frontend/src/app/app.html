@@ -48,7 +48,9 @@
 
   <a routerLink="/catalogo" routerLinkActive="active" (click)="chiudiMenu()">Catalogo</a>
 
-  @if (!auth.loggato()) {
+  @if (auth.loggato()) {
+  <a routerLink="/miei-ordini" routerLinkActive="active" (click)="chiudiMenu()">I miei ordini</a>
+  } @else {
   <a routerLink="/login" routerLinkActive="active" (click)="chiudiMenu()">Accedi</a>
   <a routerLink="/registrazione" routerLinkActive="active" (click)="chiudiMenu()">Registrati</a>
   }

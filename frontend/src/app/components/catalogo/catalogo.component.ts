@@ -11,9 +11,9 @@ import { KatanaImmagineComponent } from '../shared/katana-immagine.component';
 interface FasciaPrezzo {
   id: string;
   etichetta: string;
-  min: number;        // incluso
-  max: number | null; // escluso; null = nessun limite
-}
+  min: number;
+  max: number | null;
+  }
 
 const FASCE_PREZZO: FasciaPrezzo[] = [
   { id: '200-1000', etichetta: '€ 200 – 1000', min: 200, max: 1000 },

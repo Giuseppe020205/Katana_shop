@@ -1,0 +1,138 @@
+
+.ordini-container {
+  padding: 1rem 0;
+}
+
+.info,
+.vuoto {
+  color: var(--muted);
+}
+
+.vuoto {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.errore {
+  background: var(--red);
+  color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ordine {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.ordine.annullato {
+  border-top-color: var(--border);
+}
+
+.intestazione {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+
+.intestazione h3 {
+  margin: 0;
+  color: var(--gold);
+}
+
+.data {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.stato {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  white-space: nowrap;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.stato.pagato {
+  border-color: #2e7d32;
+  color: #66bb6a;
+}
+
+.stato.annullato {
+  border-color: var(--red);
+  color: var(--red-hover);
+}
+
+.righe {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.riga {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.nome {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.dettaglio {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.subtotale {
+  font-weight: bold;
+  text-align: right;
+}
+
+.totale {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+
+.ordine.annullato .totale span:last-child {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.btn-primario {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primario:hover {
+  background: var(--red-hover);
+}

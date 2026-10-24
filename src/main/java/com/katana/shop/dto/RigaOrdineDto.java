@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 public record RigaOrdineDto (
         Long katanaId,
         String nome,
+        String immagine,
         int quantita,
         BigDecimal prezzoUnitario,
         BigDecimal subtotale
@@ -15,6 +16,7 @@ public record RigaOrdineDto (
         return new RigaOrdineDto(
                 riga.getKatana().getId(),
                 riga.getKatana().getNome(),
+                riga.getKatana().getImmagine(),
                 riga.getQuantita(),
                 riga.getPrezzoUnitario(),
                 riga.getSubtotale()

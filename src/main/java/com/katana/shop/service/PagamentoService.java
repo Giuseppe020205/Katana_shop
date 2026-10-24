@@ -34,7 +34,7 @@ public class PagamentoService {
         this.chiaveSegreta = chiaveSegreta;
         this.frontendUrl = frontendUrl;
     }
-
+    //avvio servizio di pagamento
     public CheckoutResponse avviaCheckout(Long utenteId, String emailUtente) {
         if (chiaveSegreta == null || chiaveSegreta.isBlank()) {
             throw new PagamentoNonDisponibileException("Il servizio di pagamento non è configurato");
@@ -98,6 +98,7 @@ public class PagamentoService {
             log.info("Stripe: sessione {} non chiusa ({})", sessionId, e.getMessage());
         }
     }
+    //pagamento andato a buon fine
     public void pagamentoCompletato(String sessionId, String paymentIntentId) {
         OrdineService.EsitoConferma esito = ordineService.confermaPagamento(sessionId);
         switch (esito) {
@@ -111,7 +112,7 @@ public class PagamentoService {
     public void sessioneScaduta(String sessionId) {
         ordineService.sessioneScaduta(sessionId);
     }
-
+    //rimborso nel caso in cui il pagamento non si andato a buon fine
     private void rimborsa(String paymentIntentId, String sessionId) {
         if (paymentIntentId == null || paymentIntentId.isBlank()) {
             log.error("Impossibile rimborsare la sessione {}: manca il pagamento associato", sessionId);

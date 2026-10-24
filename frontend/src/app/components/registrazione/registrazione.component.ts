@@ -94,7 +94,7 @@ export class RegistrazioneComponent {
       .subscribe({
         next: () => {
           this.invio.set(false);
-          this.router.navigateByUrl('/catalogo');
+          this.router.navigateByUrl('/');
         },
         error: (err) => {
           this.invio.set(false);
